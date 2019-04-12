@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * This file is part of MoneyType, a PHP Experts, Inc., Project.
@@ -26,19 +26,19 @@ final class NativeCalcStrategy implements MoneyCalculationStrategy
     private $leftOperand;
 
     /**
-     * Converts a float/double to an int with no precision loss.
+     * Converts a float-like string to an int with no precision loss.
      *
      * @param string $float
      * @return int
      */
-    private function convertToCents($float)
+    private function convertToCents(string $float)
     {
         return (int)round((double) $float * 100);
     }
 
     public function __construct($leftOperand)
     {
-        $this->leftOperand = $this->convertToCents($leftOperand);
+        $this->leftOperand = $this->convertToCents((string) $leftOperand);
     }
 
     public function getWithFullPrecision(): string
